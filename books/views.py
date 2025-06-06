@@ -73,10 +73,11 @@ class ReturnBookView(View):
 class CreateReviewView(View):
     template_name = 'admin_posts/review.html'
 
-    def get(self, request,book_id,):
+    def get(self, request, book_id):
         form = UserReviewForm()
         book = AdminPost.objects.get(id=book_id)
-        return render(request, self.template_name, {'form': form, 'book': book})
+        reviews = Review.objects.filter(book=book)
+        return render(request, self.template_name, {'form': form, 'book': book, 'reviews': reviews})
 
     def post(self, request, book_id):
         book = AdminPost.objects.get(id=book_id)
@@ -86,9 +87,13 @@ class CreateReviewView(View):
             rating = request.POST.get('rating')
             comment = request.POST.get('comment')
             Review.objects.create(user=user, book=book, rating=rating, comment=comment)
-            print('$$$$$$$$$')
             messages.success(request, 'Review submitted successfully')
         else:
             messages.info(request, 'No book buying !')
         return redirect('details', id=book_id)
+
+
+
+
+
 

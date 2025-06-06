@@ -3,28 +3,49 @@
 {% block head_title %}Dream Library{% endblock %}
 {% block body %}
 
-<div class="container mx-auto flex flex-col md:flex-row items-center mt-8 mb-3">
-    <div class="flex flex-col w-full lg:w-1/2 justify-center items-start pt-4 pb-6 px-6 bg-white rounded-2xl bg-opacity-70 mx-3">
-        <h1 class="font-bold text-3xl mb-3">Welcome to Dream Library</h1>
-        <p class="leading-normal">
-            The term “book-wrapt” describes a home dominated by books and suggests a feeling of being both surrounded by and held rapt by books. Originating from the United States, the trend is turning books into sought-after home accessories. Having a library of one’s own is becoming a new status symbol. But whether the books on display have actually been read is irrelevant. What matters is the sheer volume of paper adorning the shelves. According to author Reid Byers, that’s because books have a positive effect on our well-being.In his book, The Private Library: The History of the Architecture and Furnishing of the Domestic Bookroom, Byers explains that the allure of having your own library at home.
-        </p>
+
+<div x-data="{ activeSlide: 0, slides: 3 }" x-init="setInterval(() => activeSlide = (activeSlide + 1) % slides, 7000)" class="relative">
+    <!-- Background -->
+    <div class="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-500 to-blue-600 opacity-80 z-0"></div>
+
+    <div class="relative z-10 container mx-auto py-10">
+        <!-- Slides -->
+        <template x-for="i in slides" :key="i">
+            <div x-show="activeSlide === i - 1" class="flex flex-col lg:flex-row items-center transition duration-700 ease-in-out">
+                <!-- Left Side - Image -->
+                <div class="w-full lg:w-1/2 p-4">
+                    <img :src="[
+                        '{% static 'image/11.png' %}',
+                        '{% static 'image/2.jpg' %}',
+                        '{% static 'image/3.jpg' %}'
+                    ][i - 1]" alt="Slide Image" class="rounded-xl shadow-lg mx-auto">
+                </div>
+
+                <!-- Right Side - Text -->
+                <div class="w-full lg:w-1/2 text-white p-6">
+                    <h2 class="text-3xl font-bold mb-4" x-text="['Welcome to Dream Library', 'Study Smarter, Not Harder', 'A Book is a Dream You Hold'][i - 1]"></h2>
+                    <p class="text-lg leading-relaxed" x-text="[
+                        'Discover a world of knowledge and imagination in your personal library haven.',
+                        'Find your ideal study space surrounded by the wisdom of books.',
+                        'Reading opens doors to unseen worlds — build your dreams here.'
+                    ][i - 1]"></p>
+                </div>
+            </div>
+        </template>
     </div>
-    <div class="w-full lg:w-1/2 lg:py-6 text-center">
-        <img class="rounded-2xl" src="{% static 'image/library.jpg' %}" alt="Library Image">
-    </div>    
 </div>
+
 
 <div class="container mx-auto p-4">
         <div class="md:col-span-3 mb-4">
-            <h3 class="text-2xl text-white font-bold mb-1">Book Category List</h3>
+            <h3 class="text-2xl text-black font-bold mb-1">Book Category List</h3>
             {% for b in book_category %}
             <a class="inline-block font-medium text-sm px-4 py-2 leading-none bg-blue-700 rounded text-white border-white hover:border-transparent hover:text-dark hover:bg-red-700 mt-2 lg:mt-0" href="{% url 'category_name_wise_post' b.slug %}">{{ b.category_name }}</a>
             {% endfor %}
         </div>
 
         <div class="col-md-12 mb-32">
-            <h4 class="text-xl text-white mb-2">{{ data|length }} results found</h4>
+            <h4 class="text-xl text-black mb-2">{{ data|length }} results found</h4>
             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
                 {% for post in data %}
                     <div class="bg-white rounded-lg overflow-hidden shadow-md">
@@ -32,13 +53,21 @@
                     
                         <div class="p-4">
                             <h5 class="text-xl font-bold">Book Name: {{ post.book_name }}</h5>
-                            <div class="mb-2">
+                            {% comment %} <div class="mb-2">
                                 <h3 class="font-semibold">Category Name:
                                     {% for b in post.book_category.all %}
                                 <span class="inline-block font-medium text-sm px-1 py-2 leading-none text-black">{{ b.category_name }}</span>
                                 {% endfor %}
                                 </h3>
-                            </div>
+                            </div> {% endcomment %}
+                            <p class="text-sm">
+                                <strong>Category Name:</strong>
+                                {% for b in post.book_category.all %}
+                                    <span class="inline-block bg-blue-100 text-blue-800 px-2 py-0.5 rounded mr-1">
+                                        {{ b.category_name }}{% if not forloop.last %} {% endif %}
+                                    </span>
+                                {% endfor %}
+                            </p>
                             <h3 class="font-semibold mb-1">Price: {{ post.borrow_price }}</h3>
                             <a href="{% url 'details' post.id %}" class="inline-block font-medium text-sm px-4 py-2 leading-none bg-green-500 rounded text-white border-white hover:border-transparent hover:text-dark hover:bg-red-700 mt-2 lg:mt-0">Details</a>
                         </div>

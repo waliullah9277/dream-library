@@ -1,14 +1,72 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+
 {% block body %}
-<div class="card m-2">
-    <div class="card-body">
-        <form method="post">
-            <h1>Add Comment</h1>
-            {% csrf_token %}
-            {{form | crispy }}
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
+<div class="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
+    <div class="w-full max-w-xl">
+        <!-- Title -->
+        <h2 class="text-4xl font-extrabold text-blue-900 text-center mb-6">Add Your Review</h2>
+
+        <!-- Form Card -->
+        <div class="bg-white p-8 rounded-2xl shadow-xl">
+            <form method="post" class="space-y-6" id="review-form">
+                {% csrf_token %}
+
+                {% comment %} <!-- Comment Field -->
+                {{ form.comment|as_crispy_field }} {% endcomment %}
+                <div class="mb-6">
+                    <label for="id_comment" class="block text-gray-700 text-base font-semibold mb-2">Comment</label>
+                    <textarea
+                        name="comment"
+                        id="id_comment"
+                        rows="4"
+                        placeholder="Write your comment..."
+                        class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-300 focus:outline-none resize-none text-gray-800 shadow-sm transition duration-200"
+                    ></textarea>
+                    {% if form.comment.errors %}
+                        {% for error in form.comment.errors %}
+                            <p class="text-red-600 text-sm italic mt-1">{{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <!-- Star Rating -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Your Rating:</label>
+                    <div class="flex items-center space-x-2">
+                        {% for i in "12345" %}
+                        <input type="radio" name="rating" value="{{ i }}" id="star{{ i }}" class="hidden peer" />
+                        <label for="star{{ i }}" class="text-3xl text-gray-300 cursor-pointer peer-checked:text-yellow-400 hover:text-yellow-300 transition duration-200 star-label">
+                            ★
+                        </label>
+                        {% endfor %}
+                    </div>
+                    <!-- Live Feedback -->
+                    <p id="rating-feedback" class="text-sm text-blue-700 mt-2 font-semibold hidden transition duration-300"></p>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="submit" class="bg-blue-900 hover:bg-blue-800 text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-300">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-{% endblock %}
 
+<!-- Star Rating Script -->
+<script>
+    const ratingInputs = document.querySelectorAll('input[name="rating"]');
+    const ratingFeedback = document.getElementById('rating-feedback');
+
+    ratingInputs.forEach(input => {
+        input.addEventListener('change', () => {
+            const ratingValue = input.value;
+            ratingFeedback.classList.remove('hidden');
+            ratingFeedback.textContent = `You rated: ${'★'.repeat(ratingValue)} (${ratingValue} out of 5)`;
+        });
+    });
+</script>
+{% endblock %}

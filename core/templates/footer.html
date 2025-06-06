@@ -1,11 +1,71 @@
-<footer class="footer bg-blue-900 text-white relative border-b-2 mt-10">
-    <div class="container mx-auto px-6">
-        <div class="mt-5 flex flex-col items-center">
-            <div class="sm:w-2/3 text-center py-0 pb-2">
-                <p class="text-md text-white font-bold mb-2">
-                    © {% now "Y" %} Modified by Waliullah
-                </p>
-            </div>
+<footer class="bg-blue-900 text-white mt-10 border-t-2">
+    <div class="container mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+      
+     <!-- Follow Us Column -->
+        <div>
+            <h2 class="text-lg font-bold mb-4">Follow Us</h2>
+            <ul class="space-y-3">
+                <li class="flex items-center space-x-2">
+                    <i class="fab fa-facebook text-blue-500"></i>
+                    <a href="#" class="hover:text-blue-400">Facebook</a>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <i class="fab fa-linkedin text-blue-400"></i>
+                    <a href="#" class="hover:text-blue-300">LinkedIn</a>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <i class="fab fa-github text-gray-300"></i>
+                    <a href="#" class="hover:text-gray-200">GitHub</a>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <i class="fab fa-instagram text-pink-400"></i>
+                    <a href="#" class="hover:text-pink-300">Instagram</a>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <i class="fab fa-whatsapp text-green-400"></i>
+                    <a href="#" class="hover:text-green-300">WhatsApp</a>
+                </li>
+            </ul>
         </div>
+  
+      <!-- About Us -->
+      <div>
+        <h3 class="text-xl font-semibold mb-4">About Us</h3>
+        <ul class="space-y-2 text-gray-300">
+          <li><a href="#" class="hover:text-white">Our Story</a></li>
+          <li><a href="#" class="hover:text-white">Mission & Vision</a></li>
+          <li><a href="#" class="hover:text-white">Team</a></li>
+          <li><a href="#" class="hover:text-white">Careers</a></li>
+        </ul>
+      </div>
+  
+      <!-- Services -->
+      <div>
+        <h3 class="text-xl font-semibold mb-4">Services</h3>
+        <ul class="space-y-2 text-gray-300">
+          <li><a href="#" class="hover:text-white">Book Lending</a></li>
+          <li><a href="#" class="hover:text-white">Reading Rooms</a></li>
+          <li><a href="#" class="hover:text-white">Online Catalog</a></li>
+          <li><a href="#" class="hover:text-white">Membership</a></li>
+        </ul>
+      </div>
+  
+      <!-- Support -->
+      <div>
+        <h3 class="text-xl font-semibold mb-4">Support</h3>
+        <ul class="space-y-2 text-gray-300">
+          <li><a href="#" class="hover:text-white">Help Center</a></li>
+          <li><a href="#" class="hover:text-white">FAQs</a></li>
+          <li><a href="#" class="hover:text-white">Contact Us</a></li>
+          <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+        </ul>
+      </div>
     </div>
-</footer>
+  
+    <div class="border-t border-blue-700 mt-8 py-4">
+      <p class="text-center text-sm text-gray-300">
+        © {% now "Y" %} Modified by Waliullah. All rights reserved.
+      </p>
+    </div>
+  </footer>
+  
