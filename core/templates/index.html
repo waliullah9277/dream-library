@@ -63,7 +63,7 @@
                             <p class="text-sm">
                                 <strong>Category Name:</strong>
                                 {% for b in post.book_category.all %}
-                                    <span class="inline-block bg-blue-100 text-blue-800 px-2 py-0.5 rounded mr-1">
+                                    <span class="inline-block bg-blue-100 text-blue-800 px-2 py-0.5 rounded mr-1 mb-1">
                                         {{ b.category_name }}{% if not forloop.last %} {% endif %}
                                     </span>
                                 {% endfor %}
