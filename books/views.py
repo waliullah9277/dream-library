@@ -41,10 +41,10 @@ class BorrowBookView(View):
                 buy.save()
                 user.account.balance -= borrowed_book.borrow_price
                 user.account.save()
-                messages.success(request, 'Book buy successfully')
-                email_send_messages(self.request.user, borrowed_book.borrow_price, 'Book buy successfully', borrowed_book.book_name, 'books/buy_book_email.html')
+                messages.success(request, 'Book Borrowing Successfully')
+                email_send_messages(self.request.user, borrowed_book.borrow_price, 'Book Borrowing successfully', borrowed_book.book_name, 'books/buy_book_email.html')
             else:
-                messages.error(request, 'This book is not available now !')
+                messages.error(request, 'Your Account have not enough Money, kindly deposit first! Otherwise you cannot borrowing book!')
         return redirect('profile')
 
 class ReturnBookView(View):
@@ -89,7 +89,7 @@ class CreateReviewView(View):
             Review.objects.create(user=user, book=book, rating=rating, comment=comment)
             messages.success(request, 'Review submitted successfully')
         else:
-            messages.info(request, 'No book buying !')
+            messages.error(request, "You Can't review first, Because of No book borrowing!")
         return redirect('details', id=book_id)
 
 

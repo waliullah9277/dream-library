@@ -35,13 +35,42 @@
     </div>
 </div>
 
+{% comment %} {% url 'search_posts' %} {% endcomment %}
 
 <div class="container mx-auto p-4">
         <div class="md:col-span-3 mb-4">
-            <h3 class="text-2xl text-black font-bold mb-1">Book Category List</h3>
-            {% for b in book_category %}
-            <a class="inline-block font-medium text-sm px-4 py-2 leading-none bg-blue-700 rounded text-white border-white hover:border-transparent hover:text-dark hover:bg-red-700 mt-2 lg:mt-0" href="{% url 'category_name_wise_post' b.slug %}">{{ b.category_name }}</a>
-            {% endfor %}
+            <div class="flex items-center justify-between flex-wrap mb-6 px-4">
+                <h3 class="text-2xl text-black font-bold mb-2">Book Category List</h3>
+                
+                <form action="{% url 'search_posts' %}" method="GET" class="flex items-center space-x-2 mt-2 sm:mt-0">
+                  <input 
+                    type="search" 
+                    name="q" 
+                    placeholder="Search Posts" 
+                    aria-label="Search"
+                    class="w-72 px-1 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  >
+                  <button 
+                    type="submit"
+                    class="px-1 py-1 text-white bg-blue-700 hover:bg-blue-800 rounded-lg transition duration-300"
+                  >
+                    Search
+                  </button>
+                </form>
+              </div>      
+            
+              {% comment %} {% url 'all_blogs' %} {% endcomment %}
+              <div class="flex flex-wrap gap-3 mt-3">
+                <a href="{% url 'home' %}" class="inline-block font-medium text-sm px-4 py-2 leading-none bg-blue-700 rounded text-white hover:bg-red-700">
+                  All
+                </a>
+                {% for b in book_category %}
+                  <a href="{% url 'category_name_wise_post' b.slug %}" class="inline-block font-medium text-sm px-4 py-2 leading-none bg-blue-700 rounded text-white hover:bg-red-700">
+                    {{ b.category_name }}
+                  </a>
+                {% endfor %}
+              </div>
+              
         </div>
 
         <div class="col-md-12 mb-32">
@@ -68,7 +97,7 @@
                                     </span>
                                 {% endfor %}
                             </p>
-                            <h3 class="font-semibold mb-1">Price: {{ post.borrow_price }}</h3>
+                            <h3 class="font-semibold mb-1">Price: ৳ {{ post.borrow_price }}</h3>
                             <a href="{% url 'details' post.id %}" class="inline-block font-medium text-sm px-4 py-2 leading-none bg-green-500 rounded text-white border-white hover:border-transparent hover:text-dark hover:bg-red-700 mt-2 lg:mt-0">Details</a>
                         </div>
                     </div> 

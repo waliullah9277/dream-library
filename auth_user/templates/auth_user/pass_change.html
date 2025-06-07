@@ -28,9 +28,12 @@
                     {{ field.label }}
                 </label>
                 <input 
-                    type="{{ field.widget_type }}" 
+                    type="{{ field.field.widget.input_type }}" 
                     name="{{ field.name }}" 
                     id="{{ field.id_for_label }}"
+                    value="{{ field.value|default_if_none:'' }}"
+                    placeholder="Enter your {{ field.label|lower }}"
+                    required
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 />
                 {% if field.errors %}

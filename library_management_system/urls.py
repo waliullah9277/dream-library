@@ -19,12 +19,13 @@ from django.urls import path,include
 from core.views import HomeView, home
 from django.conf import settings
 from django.conf.urls.static import static
-
+from .import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView, name = 'home' ),
     path('category/<slug:category_name_slug>/', home, name='category_name_wise_post'),
+    path('search-posts', views.search_posts, name = 'search_posts'),
     path('accounts/', include('auth_user.urls')),
     path('posts/', include('admin_posts.urls')),
     path('tranactions/', include('tranactions.urls')),

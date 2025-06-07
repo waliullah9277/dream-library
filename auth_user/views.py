@@ -11,6 +11,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from books.models import BuyBook, BorrowedBook
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from admin_posts.models import AdminPost
 
 # Create your views here.
 
@@ -77,21 +78,25 @@ class UserUpdateView1(LoginRequiredMixin, View):
         return render(request, self.template_name, {'form':form})
 
 
+
 class UserPasswordChangeView(LoginRequiredMixin, View):
     template_name = 'auth_user/pass_change.html'
 
-    def get(self,request, *args, **kwargs):
-        form = PasswordChangeForm(request.user)
-        return render(request, self.template_name, {'form':form})
-    
+    def get(self, request, *args, **kwargs):
+        form = PasswordChangeForm(user=request.user)
+        return render(request, self.template_name, {'form': form})
+
     def post(self, request, *args, **kwargs):
-        form = PasswordChangeForm(request.user, data = request.POST)
+        form = PasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, f'Your password has been changed successfully !')
-            send_authenticate_email(self.request.user, 'Password Changes', 'auth_user/user_password_change_send_email.html')
             update_session_auth_hash(request, form.user)
+            messages.success(request, 'Your password has been changed successfully!')
+            send_authenticate_email(
+                request.user,
+                'Password Changed',
+                'auth_user/user_password_change_send_email.html'
+            )
             return redirect('profile')
-        else:
-            form = PasswordChangeForm(request.user)
+        # Don't reinitialize the form here — keep error state
         return render(request, self.template_name, {'form': form})

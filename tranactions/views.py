@@ -64,7 +64,7 @@ class DepositMoneyView(TranactionsMixinView):
         account.save(
             update_fields = ['balance']
         )
-        messages.success(self.request, f'{amount} $ has been deposit successfully !')
+        messages.success(self.request, f'{amount} ৳ has been deposit successfully !')
         send_transaction_email(self.request.user, amount, 'Deposit successfully', 'tranactions/deposit_send_email.html')
 
         return super().form_valid(form)

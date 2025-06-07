@@ -35,8 +35,8 @@
           {% endfor %}
         </p>
 
-        <p><strong>Quantity:</strong> {{ post.quantity }}</p>
-        <p class="card-title mb-2"><strong>Price:</strong> {{ post.borrow_price }}</p>
+        <p><strong>Quantity:</strong> {{ post.quantity }} Pcs</p>
+        <p class="card-title mb-2"><strong>Price: ৳ </strong> {{ post.borrow_price }}</p>
 
         {% if user.is_authenticated %}
           <!-- For logged-in users -->

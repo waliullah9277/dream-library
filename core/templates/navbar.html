@@ -31,7 +31,7 @@
             <!-- Authenticated Buttons -->
             <div class="flex flex-col lg:flex-row items-center justify-center space-y-2 lg:space-y-0 lg:space-x-3 w-auto">
                 <span class="text-white font-bold text-center">
-                    Welcome to {{ request.user.first_name }} {{ request.user.last_name }} (balance: {{ request.user.account.balance }})
+                    Welcome to {{ request.user.first_name }} {{ request.user.last_name }} (balance: ৳ {{ request.user.account.balance }})
                 </span>
                 <a href="{% url 'profile' %}" class="px-4 py-1.5 bg-white text-black rounded hover:bg-purple-100 transition self-center w-auto">Profile</a>
                 <form action="{% url 'logout' %}" method="post" class="self-center w-auto">

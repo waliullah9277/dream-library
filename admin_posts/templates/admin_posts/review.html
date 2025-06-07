@@ -1,7 +1,16 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-
 {% block body %}
+{% include "messages.html" %}
+{% if form.non_field_errors %}
+  {% for error in form.non_field_errors %}
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
+      <p class="font-bold">Error!</p>
+      <p class="block sm:inline">{{ error }}</p>
+    </div>
+  {% endfor %}
+{% endif %}
+
 <div class="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
     <div class="w-full max-w-xl">
         <!-- Title -->
