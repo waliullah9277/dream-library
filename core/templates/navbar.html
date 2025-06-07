@@ -1,67 +1,76 @@
-<nav class="flex items-center justify-between flex-wrap bg-blue-900 p-4 px-6 shadow-md">
-    <!-- Logo -->
-    <div class="flex items-center flex-shrink-0 text-white mr-6">
+<!-- Fixed Top Navbar -->
+<nav class="fixed top-0 w-full z-50 bg-blue-900 shadow-md px-6 py-4">
+    <div class="flex items-center justify-between flex-wrap">
+      <!-- Logo -->
+      <div class="flex items-center flex-shrink-0 text-white mr-6">
         <span class="font-bold text-2xl tracking-tight">
-            <a href="{% url 'home' %}">Dream Library</a>
+          <a href="{% url 'home' %}">Dream Library</a>
         </span>
-    </div>
-
-    <!-- Mobile Toggle Button -->
-    <div class="block lg:hidden">
+      </div>
+  
+      <!-- Mobile Toggle -->
+      <div class="block lg:hidden">
         <button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-white border-white">
-            <svg class="fill-current h-5 w-5" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <title>Menu</title>
-                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
-            </svg>
+          <svg class="fill-current h-5 w-5" viewBox="0 0 20 20">
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+          </svg>
         </button>
-    </div>
-
-    <!-- Menu Items -->
-    <div id="nav-menu" class="w-full hidden lg:flex lg:items-center lg:w-auto flex-col lg:flex-row mt-4 lg:mt-0 lg:space-x-6 space-y-4 lg:space-y-0 text-center">
+      </div>
+  
+      <!-- Menu Items -->
+      <div id="nav-menu"
+        class="w-full hidden lg:flex lg:items-center lg:w-auto flex-col lg:flex-row mt-4 lg:mt-0 lg:space-x-6 space-y-4 lg:space-y-0 text-center">
         {% if request.user.is_authenticated %}
-            <!-- Authenticated Menu Links -->
-            <div class="flex flex-col lg:flex-row lg:items-center lg:space-x-6 space-y-4 lg:space-y-0 text-center">
-                <a href="{% url 'home' %}" class="text-white font-medium hover:font-bold hover:text-gray-100">Home</a>
-                <a href="#" class="text-white font-medium hover:font-bold hover:text-gray-100">Contact Us</a>
-                <a href="#" class="text-white font-medium hover:font-bold hover:text-gray-100">Blogs</a>
-                <a href="{% url 'tranactions_report' %}" class="text-white font-medium hover:font-bold hover:text-gray-100">Transaction Report</a>
-                <a href="{% url 'deposit_money' %}" class="text-white font-medium hover:font-bold hover:text-gray-100">Deposit</a>
-            </div>
-
-            <!-- Authenticated Buttons -->
-            <div class="flex flex-col lg:flex-row items-center justify-center space-y-2 lg:space-y-0 lg:space-x-3 w-auto">
-                <span class="text-white font-bold text-center">
-                    Welcome to {{ request.user.first_name }} {{ request.user.last_name }} (balance: ৳ {{ request.user.account.balance }})
-                </span>
-                <a href="{% url 'profile' %}" class="px-4 py-1.5 bg-white text-black rounded hover:bg-purple-100 transition self-center w-auto">Profile</a>
-                <form action="{% url 'logout' %}" method="post" class="self-center w-auto">
-                    {% csrf_token %}
-                    <button type="submit" class="px-4 py-1.5 bg-red-700 text-white rounded hover:bg-red-500 transition">Logout</button>
-                </form>
-            </div>
+        <div class="flex flex-col lg:flex-row lg:items-center lg:space-x-6 space-y-4 lg:space-y-0">
+          <a href="{% url 'home' %}" class="text-white font-medium hover:font-bold hover:text-gray-100">Home</a>
+          <a href="#" class="text-white font-medium hover:font-bold hover:text-gray-100">Contact</a>
+          <a href="#" class="text-white font-medium hover:font-bold hover:text-gray-100">Blogs</a>
+          <a href="{% url 'tranactions_report' %}" class="text-white font-medium hover:font-bold hover:text-gray-100">Transactions</a>
+          <a href="{% url 'deposit_money' %}" class="text-white font-medium hover:font-bold hover:text-gray-100">Deposit</a>
+        </div>
+  
+        <div class="flex flex-col lg:flex-row items-center justify-center space-y-2 lg:space-y-0 lg:space-x-3">
+          <span class="text-white font-bold text-center">
+            Welcome {{ request.user.first_name }} {{ request.user.last_name }} (৳{{ request.user.account.balance }})
+          </span>
+          <a href="{% url 'profile' %}" class="px-4 py-1.5 bg-white text-black rounded hover:bg-purple-100 transition">Profile</a>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="px-4 py-1.5 bg-red-700 text-white rounded hover:bg-red-500 transition">Logout</button>
+          </form>
+        </div>
         {% else %}
-            <!-- Non-authenticated Menu -->
-            <div class="flex flex-col lg:flex-row lg:items-center lg:space-x-6 space-y-4 lg:space-y-0 text-center">
-                <a href="{% url 'home' %}" class="text-white font-medium hover:font-bold hover:text-gray-100">Home</a>
-                <a href="#" class="text-white font-medium hover:font-bold hover:text-gray-100">Contact Us</a>
-                <a href="#" class="text-white font-medium hover:font-bold hover:text-gray-100">Blogs</a>
-            </div>
-
-            <!-- Non-auth Buttons -->
-            <div class="flex flex-col lg:flex-row items-center justify-center space-y-2 lg:space-y-0 lg:space-x-3 w-auto">
-                <a href="{% url 'login' %}" class="px-4 py-1.5 bg-white text-[#a29bfe] rounded hover:bg-purple-100 transition self-center w-auto">Login</a>
-                <a href="{% url 'register' %}" class="px-4 py-1.5 bg-white text-[#a29bfe] rounded hover:bg-purple-100 transition self-center w-auto">Register</a>
-            </div>
+        <div class="flex flex-col lg:flex-row lg:items-center lg:space-x-6 space-y-4 lg:space-y-0">
+          <a href="{% url 'home' %}" class="text-white font-medium hover:font-bold hover:text-gray-100">Home</a>
+          <a href="#" class="text-white font-medium hover:font-bold hover:text-gray-100">Contact</a>
+          <a href="#" class="text-white font-medium hover:font-bold hover:text-gray-100">Blogs</a>
+        </div>
+  
+        <div class="flex flex-col lg:flex-row items-center justify-center space-y-2 lg:space-y-0 lg:space-x-3">
+          <a href="{% url 'login' %}" class="px-4 py-1.5 bg-white text-blue-600 rounded hover:bg-blue-100 transition">Login</a>
+          <a href="{% url 'register' %}" class="px-4 py-1.5 bg-white text-blue-600 rounded hover:bg-blue-100 transition">Register</a>
+        </div>
         {% endif %}
+      </div>
     </div>
-</nav>
-
-<!-- Toggle Menu Script -->
-<script>
+  </nav>
+  
+  <!-- Toggle Script -->
+  <script>
     const toggleBtn = document.getElementById('nav-toggle');
     const menu = document.getElementById('nav-menu');
-
     toggleBtn.addEventListener('click', () => {
-        menu.classList.toggle('hidden');
+      menu.classList.toggle('hidden');
     });
-</script>
+  </script>
+  
+  <!-- Main Content Starts Here -->
+  <!-- Margin top equals to navbar height (py-4 = 16px top & bottom ≈ total 64px) -->
+  <div class="pt-16 px-6">
+    <!-- Your page content here -->
+    {% comment %} <h1 class="text-3xl font-bold mb-6">Welcome to Dream Library</h1>
+    <p class="text-gray-700 leading-relaxed">
+      This is your main content area. The navbar above is fixed and doesn't overlap because this content has top padding (`pt-24`).
+    </p> {% endcomment %}
+  </div>
+  
