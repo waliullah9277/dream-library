@@ -45,7 +45,8 @@ class BorrowBookView(View):
                 email_send_messages(self.request.user, borrowed_book.borrow_price, 'Book Borrowing successfully', borrowed_book.book_name, 'books/buy_book_email.html')
             else:
                 messages.error(request, 'Your Account have not enough Money, kindly deposit first! Otherwise you cannot borrowing book!')
-        return redirect('deposit_money')
+                return redirect('deposit_money')
+        return redirect('profile')
 
 class ReturnBookView(View):
     template_name = 'auth_user/profile.html'
