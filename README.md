@@ -20,8 +20,8 @@ A full-stack online book borrowing and reviewing system built with **Django** an
 
 ## 🛠️ Tech Stack
 
-- **Backend**: Django  
-- **Frontend**: Tailwind CSS, HTML, JavaScript  
+- **Backend**: Python, Django
+- **Frontend**: Tailwind CSS, HTML5, JavaScript  
 - **Database**: SQLite (can be changed to PostgreSQL)  
 - **Deployment**: Render  
 
