@@ -29,8 +29,68 @@ A full-stack online book borrowing and reviewing system built with **Django** an
 
 ## 🔧 Setup Instructions
 
-1. **Clone the repository:**
+### 1. Clone the repository
 
-   ```bash
-   git clone https://github.com/your-username/dream-library.git
-   cd dream-library
+```bash
+git clone https://github.com/your-username/dream-library.git
+cd dream-library
+```
+
+### 2. Create and activate virtual environment
+
+```bash
+python -m venv env
+```
+
+- **Windows:**
+  ```bash
+  env\Scripts\activate
+  ```
+- **Linux/Mac:**
+  ```bash
+  source env/bin/activate
+  ```
+
+### 3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Apply database migrations
+
+```bash
+python manage.py migrate
+```
+
+### 5. Run the development server
+
+```bash
+python manage.py runserver
+```
+
+Then visit `http://127.0.0.1:8000/` in your browser.
+
+### 6. Create a superuser (optional)
+
+To access Django admin panel:
+
+```bash
+python manage.py createsuperuser
+```
+
+Then log in at `http://127.0.0.1:8000/admin/`
+
+---
+
+## 👤 Author
+
+- **Md. Waliullah**  
+  GitHub: [@waliullah9277](https://github.com/waliullah9277)  
+  Email: waliullah9252@gmail.com  
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** — feel free to use, modify, and distribute.
